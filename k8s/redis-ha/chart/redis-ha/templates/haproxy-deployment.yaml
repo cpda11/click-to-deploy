@@ -34,7 +34,7 @@ spec:
         image: {{ .Values.haproxy.image }}
         resources:
           requests:
-            memory: 50m
+            memory: 50M
             cpu: 100m
         command:
         - sh
@@ -76,7 +76,7 @@ spec:
           containerPort: 9101
         resources:
           requests:
-            memory: 100m
+            memory: 100M
             cpu: 100m
         volumeMounts:
         - name: data
@@ -86,6 +86,10 @@ spec:
       {{- if .Values.metrics.exporter.enabled }}
       - name: prometheus-to-sd
         image: {{ .Values.metrics.image }}
+        resources:
+          requests:
+            memory: 50M
+            cpu: 250m
         command:
         - /monitor
         - --stackdriver-prefix=custom.googleapis.com

@@ -40,8 +40,8 @@ spec:
         image: {{ .Values.redis.image.repo }}:{{ .Values.redis.image.tag }}
         resources:
           requests:
-            memory: 10m
-            cpu: 100m
+            memory: 50M
+            cpu: 250m
         command:
         - sh
         args:
@@ -86,7 +86,7 @@ spec:
           initialDelaySeconds: 15
         resources:
           requests:
-            memory: 200Mi
+            memory: 200M
             cpu: 100m
         ports:
         - name: redis
@@ -114,7 +114,7 @@ spec:
           initialDelaySeconds: 15
         resources:
           requests:
-            memory: 200Mi
+            memory: 200M
             cpu: 100m
         ports:
           - name: sentinel
@@ -143,13 +143,17 @@ spec:
           periodSeconds: 15
         resources:
           requests:
-            memory: 50m
+            memory: 50M
             cpu: 100m
         ports:
           - name: exporter-port
             containerPort: 9121
       {{- if .Values.metrics.exporter.enabled }}
       - name: prometheus-to-sd
+        resources:
+          requests:
+            memory: 50M
+            cpu: 250m
         image: {{ .Values.metrics.image }}
         command:
         - /monitor
